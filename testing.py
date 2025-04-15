@@ -1,17 +1,15 @@
 import streamlit as st
 import os
-from openai import OpenAI
+import openai  # Correct import
 
 # Load token and endpoint
 token = os.environ.get("GITHUB_TOKEN")  # Replace with your actual env var name if different
 endpoint = "https://models.inference.ai.azure.com"
 model_name = "gpt-4o-mini"
 
-# Initialize client
-client = OpenAI(
-    base_url=endpoint,
-    api_key=token,
-)
+# Initialize OpenAI client
+openai.api_base = endpoint
+openai.api_key = token
 
 # Streamlit UI
 st.title("Put your question here.")
@@ -28,14 +26,14 @@ if submit:
     else:
         try:
             with st.spinner("Thinking..."):
-                response = client.chat.completions.create(
+                response = openai.ChatCompletion.create(
                     model=model_name,
                     messages=[
                         {"role": "system", "content": "You are a helpful assistant."},
                         {"role": "user", "content": question}
                     ]
                 )
-                answer = response.choices[0].message.content
+                answer = response['choices'][0]['message']['content']
                 st.success(f"Answer:\n\n{answer}")
 
         except Exception as e:
