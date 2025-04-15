@@ -15,7 +15,7 @@ client = OpenAI(
 
 # Streamlit UI
 st.title("Put your question here.")
-
+st.text("Latihan Ricky")
 question = st.text_area("Ask anything below:", height=150)
 submit = st.button("Submit")
 
