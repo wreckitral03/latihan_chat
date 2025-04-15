@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-import openai  # Correct import
+from openai import OpenAI
 
 # Load token and endpoint
 token = os.environ.get("GITHUB_TOKEN")  # Replace with your actual env var name if different
